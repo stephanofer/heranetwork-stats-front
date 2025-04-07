@@ -1,0 +1,131 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "@/assets/images/heranetwork.png";
+---
+
+<header class="site-header">
+  <div class="container">
+    <nav aria-label="Main navigation">
+      <div class="logo">
+        <div class="logo-image">
+          <a href="/" aria-label="Home page">
+            <Image src={logoImage} alt="Site Logo" width={60} height={60} />
+          </a>
+        </div>
+
+        <div class="logo-text">
+          <span>Hera Network</span>
+          <span>heramc.net</span>
+        </div>
+      </div>
+
+      <ul id="primary-navigation" class="primary-navigation">
+        <li>
+          <a
+            href="/"
+            aria-current={Astro.url.pathname === "/" ? "page" : undefined}
+            >Inicio</a
+          >
+        </li>
+        <li>
+          <a
+            href="/estadisticas"
+            aria-current={Astro.url.pathname === "/about" ? "page" : undefined}
+            >Estadisticas</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://tienda.heramc.net"
+            target="_self"
+            rel="noopener noreferrer">Tienda</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    padding: 1.5rem;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  .logo {
+    display: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  img {
+    display: block;
+  }
+
+  .logo-image {
+    display: none;
+
+    @media (width > 1024px) {
+      display: flex;
+    }
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+
+    & span:first-child {
+      font-weight: 700;
+      font-size: var(--fs-sm);
+
+      @media (width > 400px) {
+        font-size: var(--fs-md);
+      }
+    }
+
+    & span:nth-child(2) {
+      font-weight: 500;
+      font-size: var(--fs-sm);
+      font-family: "Clash";
+      color: var(--color-opacity);
+    }
+  }
+
+  .primary-navigation {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+
+    & a {
+      font-size: var(--fs-base);
+      color: white;
+      font-weight: 450;
+
+      &:hover {
+        position: relative;
+      }
+
+      &:hover::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        height: 1px;
+        background-color: white;
+      }
+    }
+  }
+</style>

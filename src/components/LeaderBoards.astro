@@ -1,0 +1,210 @@
+---
+interface LeaderboardEntry {
+  rank: number;
+  uuid: string;
+  playerName: string;
+  value: number;
+  dailyDelta: number;
+  dailyLastTotal: number;
+  dailyTimestamp: number;
+}
+
+interface LeaderboardResponse {
+  success: boolean;
+  data: LeaderboardEntry[];
+  count: number;
+  timestamp: string;
+}
+
+const data = async () => {
+  try {
+    // Simulate a delay in the API response (e.g., 2 seconds)
+    // const simulateDelay = () =>
+    //   new Promise((resolve) => setTimeout(resolve, 10000));
+    // await simulateDelay();
+
+    const response = await fetch(
+      "http://localhost:3000/api/v1/rpg/leaderboards?type=kill",
+    );
+    const result: LeaderboardResponse = await response.json();
+
+    if (result.success) {
+      return {
+        data: result.data,
+        isLoading: false,
+      };
+    }
+    return {
+      data: [],
+      isLoading: false,
+    };
+  } catch (error) {
+    console.error("Error fetching leaderboard data:", error);
+    return {
+      data: [],
+      isLoading: false,
+    };
+  }
+};
+
+const { data: leaderboardEntries = [], isLoading = true } = await data();
+
+Astro.response.headers.set("Cache-Control", "public, max-age=30");
+---
+
+<div class="leaderboard-container">
+  <h2 class="leaderboard-title">Kills Leaderboard</h2>
+
+  {
+    isLoading ? (
+      <div class="loading-container">
+        <div class="loader" />
+        <p>Loading leaderboard data...</p>
+      </div>
+    ) : leaderboardEntries.length > 0 ? (
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Kills</th>
+            <th>Daily Change</th>
+          </tr>
+        </thead>
+        <tbody>
+          {leaderboardEntries.map((entry) => (
+            <tr class={entry.rank <= 3 ? `top-${entry.rank}` : ""}>
+              <td class="rank">{entry.rank}</td>
+              <td class="player-name">{entry.playerName}</td>
+              <td class="value">{entry.value}</td>
+              <td class="daily-delta">
+                {entry.dailyDelta > 0
+                  ? `+${entry.dailyDelta}`
+                  : entry.dailyDelta}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    ) : (
+      <div class="no-data">No leaderboard data available</div>
+    )
+  }
+</div>
+
+<style>
+  .leaderboard-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #1a1a2e;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .leaderboard-title {
+    color: #e94560;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+  }
+
+  .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #ffffff;
+  }
+
+  .leaderboard-table th {
+    background-color: #0f3460;
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .leaderboard-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #2a2a4a;
+  }
+
+  .leaderboard-table tr:hover {
+    background-color: #252547;
+  }
+
+  .rank {
+    font-weight: bold;
+    width: 60px;
+  }
+
+  .player-name {
+    font-weight: 500;
+  }
+
+  .value {
+    font-weight: bold;
+    color: #4cc9f0;
+  }
+
+  .daily-delta {
+    color: #4ade80;
+  }
+
+  .daily-delta:has(
+      :-webkit-any(-moz-only-whitespace, :-moz-only-whitespace):not(
+          [data-positive]
+        )
+    ) {
+    color: #f87171;
+  }
+
+  .top-1 {
+    background-color: rgba(255, 215, 0, 0.15);
+  }
+
+  .top-2 {
+    background-color: rgba(192, 192, 192, 0.15);
+  }
+
+  .top-3 {
+    background-color: rgba(205, 127, 50, 0.15);
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 2rem;
+    color: #93a8c9;
+    font-style: italic;
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    color: #93a8c9;
+  }
+
+  .loader {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #e94560;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
