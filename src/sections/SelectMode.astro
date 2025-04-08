@@ -34,10 +34,10 @@ import ArrowRight from "@/assets/Arrow-right.astro";
       <div class="more-details">
         <span>Ver mas detalles</span>
         <div>
-          <button
+          <a class="link" href="/ranking/rpg/kill"
             >Ingresar
             <ArrowRight width={16} height={16} />
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -59,10 +59,10 @@ import ArrowRight from "@/assets/Arrow-right.astro";
       <div class="more-details">
         <span>Ver mas detalles</span>
         <div>
-          <button
+          <a class="link" href="/ranking/cpvp/kill"
             >Ingresar
             <ArrowRight width={16} height={16} />
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -184,8 +184,9 @@ import ArrowRight from "@/assets/Arrow-right.astro";
     justify-content: space-between;
     align-items: center;
 
-    & button {
+    .link {
       display: flex;
+      color: white;
       justify-content: center;
       align-items: center;
       gap: 0.5rem;

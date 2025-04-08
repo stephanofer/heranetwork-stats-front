@@ -1,0 +1,52 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LeaderBoards from "@/components/LeaderBoards.astro";
+
+export function getStaticPaths() {
+  const modes = ["rpg", "cpvp"];
+  const types = ["kill", "kd", "maxstreak", "elo", "level", "koth"];
+
+  return modes.flatMap((mode) => {
+    return types.map((type) => {
+      return {
+        params: { mode, type },
+        props: {
+          pageTitle: `Estadisticas ${mode === "rpg" ? "RPG" : "Survival 1.21"}`,
+          fullTitle: `Estadisticas - ${mode === "rpg" ? "RPG" : "Survival 1.21"}`,
+        },
+      };
+    });
+  });
+}
+
+const { fullTitle, pageTitle } = Astro.props;
+const { mode, type } = Astro.params;
+
+const gameType = (mode === "rpg" || mode === "cpvp" ? mode : "rpg") as
+  | "rpg"
+  | "cpvp";
+
+export const prerender = true;
+---
+
+<BaseLayout title={fullTitle}>
+  <div class="container">
+    <div class="title">
+      <h1>{pageTitle}</h1>
+    </div>
+    <LeaderBoards server:defer gameType={gameType} type={type}>
+      <span slot="fallback">Cargando...</span>
+    </LeaderBoards>
+  </div>
+</BaseLayout>
+
+<style>
+  .title {
+    text-align: center;
+    & h1 {
+      font-family: "Clash";
+      font-weight: 600;
+      font-size: var(--fs-xxl);
+    }
+  }
+</style>

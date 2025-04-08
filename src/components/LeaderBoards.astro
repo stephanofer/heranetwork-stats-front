@@ -1,4 +1,13 @@
 ---
+interface Props {
+  gameType: "rpg" | "cpvp";
+  type: string;
+  title?: string;
+  apiEndpoint?: string; // Nuevo parámetro opcional
+}
+
+const { gameType, title, apiEndpoint,type } = Astro.props;
+
 interface LeaderboardEntry {
   rank: number;
   uuid: string;
@@ -20,12 +29,19 @@ const data = async () => {
   try {
     // Simulate a delay in the API response (e.g., 2 seconds)
     // const simulateDelay = () =>
-    //   new Promise((resolve) => setTimeout(resolve, 10000));
+      // new Promise((resolve) => setTimeout(resolve, 10000));
     // await simulateDelay();
 
-    const response = await fetch(
-      "http://localhost:3000/api/v1/rpg/leaderboards?type=kill",
-    );
+    // Determinar la URL en función del gameType y apiEndpoint
+    const defaultUrl =
+      gameType === "rpg"
+        ? `http://localhost:3000/api/v1/rpg/leaderboards?type=${type}`
+        : `http://localhost:3000/api/v1/survi21/leaderboards?type=${type}`;
+
+    // Usar el apiEndpoint personalizado si se proporciona
+    const apiUrl = apiEndpoint || defaultUrl;
+
+    const response = await fetch(apiUrl);
     const result: LeaderboardResponse = await response.json();
 
     if (result.success) {
@@ -50,10 +66,15 @@ const data = async () => {
 const { data: leaderboardEntries = [], isLoading = true } = await data();
 
 Astro.response.headers.set("Cache-Control", "public, max-age=30");
+
+// Determinar el título si no se proporciona uno personalizado
+const leaderboardTitle =
+  title ||
+  (gameType === "rpg" ? "RPG Kills Leaderboard" : "CPVP Kills Leaderboard");
 ---
 
 <div class="leaderboard-container">
-  <h2 class="leaderboard-title">Kills Leaderboard</h2>
+  <h2 class="leaderboard-title">{leaderboardTitle}</h2>
 
   {
     isLoading ? (
@@ -75,7 +96,17 @@ Astro.response.headers.set("Cache-Control", "public, max-age=30");
           {leaderboardEntries.map((entry) => (
             <tr class={entry.rank <= 3 ? `top-${entry.rank}` : ""}>
               <td class="rank">{entry.rank}</td>
-              <td class="player-name">{entry.playerName}</td>
+                <td class="player-name">
+                <div class="player-info">
+                    <img 
+                    src={`https://render.crafty.gg/3d/bust/cf11286ad43e4f7cbbd51b4f653392c7`} 
+                    alt={`${entry.playerName}'s avatar`}
+                    class="player-avatar"
+                    loading="lazy"
+                    />
+                  <span>{entry.playerName}</span>
+                </div>
+                </td>
               <td class="value">{entry.value}</td>
               <td class="daily-delta">
                 {entry.dailyDelta > 0

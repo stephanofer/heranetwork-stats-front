@@ -1,13 +1,19 @@
 ---
+import Header from "@/components/Header.astro";
 import MainHead from "@/components/MainHead.astro";
+import {ClientRouter} from 'astro:transitions'
+
+const {title} = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <MainHead />
+    <ClientRouter/>
+    <MainHead title={title}/>
   </head>
   <body>
+    <Header />
     <slot />
   </body>
 </html>
