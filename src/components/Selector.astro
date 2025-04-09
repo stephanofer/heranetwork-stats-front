@@ -1,0 +1,24 @@
+<div class="selector">
+  <nav class="tabs-container">
+    <ul class="tabs-list">
+      <li class={type === "kill" ? "active" : ""}>
+        <a href={`/ranking/${mode}/kill`}>Kills</a>
+      </li>
+      <li class={type === "kd" ? "active" : ""}>
+        <a href={`/ranking/${mode}/kd`}>K/D</a>
+      </li>
+      <li class={type === "maxstreak" ? "active" : ""}>
+        <a href={`/ranking/${mode}/maxstreak`}>Max Streak</a>
+      </li>
+      <li class={type === "elo" ? "active" : ""}>
+        <a href={`/ranking/${mode}/elo`}>ELO</a>
+      </li>
+      <li class={type === "level" ? "active" : ""}>
+        <a href={`/ranking/${mode}/level`}>Nivel</a>
+      </li>
+      <li class={type === "koth" ? "active" : ""}>
+        <a href={`/ranking/${mode}/koth`}>KOTH</a>
+      </li>
+    </ul>
+  </nav>
+</div>
