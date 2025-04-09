@@ -8,7 +8,7 @@ import ArrowRight from "@/assets/Arrow-right.astro";
 
 <div class="container">
   <div class="container-title">
-    <h1>Selecciona tu modalidad</h1>
+    <h1 transition:name="title">Selecciona tu modalidad</h1>
     <h2>
       Elige entre diferentes modalidades para visualizar tus estadísticas y los
       rankings
@@ -105,13 +105,14 @@ import ArrowRight from "@/assets/Arrow-right.astro";
     }
 
     & > div:first-child {
-      border-right-width: 1px;
-      border-right-color: var(--color-divider);
-      border-right-style: solid;
+      @media (width > 1024px) {
+        border-right-width: 1px;
+        border-right-color: var(--color-divider);
+        border-right-style: solid;
+      }
     }
 
     .select-container {
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;

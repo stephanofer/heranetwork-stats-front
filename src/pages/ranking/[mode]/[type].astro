@@ -34,7 +34,11 @@ export const prerender = true;
     <div class="title">
       <h1>{pageTitle}</h1>
     </div>
-    <LeaderBoards server:defer gameType={gameType} type={type}>
+    <LeaderBoards
+      server:defer
+      gameType={gameType}
+      type={type}
+    >
       <span slot="fallback">Cargando...</span>
     </LeaderBoards>
   </div>

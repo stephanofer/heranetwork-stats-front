@@ -1,23 +1,23 @@
 ---
+import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import MainHead from "@/components/MainHead.astro";
-import {ClientRouter} from 'astro:transitions'
+import { ClientRouter } from "astro:transitions";
 
-const {title} = Astro.props
+const { title } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <ClientRouter/>
-    <MainHead title={title}/>
+    <ClientRouter />
+    <MainHead title={title} />
   </head>
   <body>
     <Header />
     <slot />
+    <Footer />
   </body>
 </html>
 
-<style>
-
-</style>
+<style></style>
