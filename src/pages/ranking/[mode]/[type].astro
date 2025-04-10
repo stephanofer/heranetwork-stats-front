@@ -5,7 +5,14 @@ import type { Modes, TypesLeaderBoard } from "@/utils";
 
 export function getStaticPaths() {
   const modes: Modes[] = ["rpg", "survi"];
-  const types: TypesLeaderBoard[] = ["kill", "kd", "maxstreak", "elo", "level", "koth"];
+  const types: TypesLeaderBoard[] = [
+    "kill",
+    "kd",
+    "maxstreak",
+    "elo",
+    "level",
+    "koth",
+  ];
 
   return modes.flatMap((mode) => {
     return types.map((type) => {
@@ -23,7 +30,6 @@ export function getStaticPaths() {
 const { fullTitle, pageTitle } = Astro.props;
 const { mode, type } = Astro.params;
 
-
 export const prerender = true;
 ---
 
@@ -34,48 +40,48 @@ export const prerender = true;
     </div>
     <div class="selector">
       <nav class="tabs-container">
-        <ul class="tabs-list">
-          <li class={type === 'kill' ? 'active' : ''}>
-            <a href={`/ranking/${mode}/kill`}>Kills</a>
-          </li>
-          <li class={type === 'kd' ? 'active' : ''}>
-            <a href={`/ranking/${mode}/kd`}>K/D</a>
-          </li>
-          <li class={type === 'maxstreak' ? 'active' : ''}>
-            <a href={`/ranking/${mode}/maxstreak`}>Max Streak</a>
-          </li>
-          <li class={type === 'elo' ? 'active' : ''}>
-            <a href={`/ranking/${mode}/elo`}>ELO</a>
-          </li>
-          <li class={type === 'level' ? 'active' : ''}>
-            <a href={`/ranking/${mode}/level`}>Nivel</a>
-          </li>
-          <li class={type === 'koth' ? 'active' : ''}>
-            <a href={`/ranking/${mode}/koth`}>KOTH</a>
-          </li>
-        </ul>
+        <div class="tabs-list">
+          <a
+            href={`/ranking/${mode}/kill`}
+            class={type === "kill" ? "active" : ""}><span> Kills</span></a
+          >
+          <a class={type === "kd" ? "active" : ""} href={`/ranking/${mode}/kd`}
+            ><span> K/D</span></a
+          >
+          <a
+            class={type === "maxstreak" ? "active" : ""}
+            href={`/ranking/${mode}/maxstreak`}><span>Mayor Racha</span></a
+          >
+          <a
+            class={type === "elo" ? "active" : ""}
+            href={`/ranking/${mode}/elo`}><span>ELO</span></a
+          >
+          <a
+            class={type === "level" ? "active" : ""}
+            href={`/ranking/${mode}/level`}><span>Nivel</span></a
+          >
+          <a
+            class={type === "koth" ? "active" :  ""}
+            href={`/ranking/${mode}/koth`}><span>Koths</span></a
+          >
+        </div>
       </nav>
     </div>
-    <LeaderBoards
-      server:defer
-      type={type}
-      mode={mode}
-    >
+    <LeaderBoards server:defer type={type} mode={mode}>
       <!-- <span slot="fallback">Cargando...</span> -->
     </LeaderBoards>
   </div>
 </BaseLayout>
 
 <style>
-  .container{
+  .container {
     max-width: 1440px;
     display: flex;
-    justify-self: center;
     flex-direction: column;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 1rem;
   }
-  
+
   .title {
     text-align: center;
     & h1 {
@@ -84,62 +90,67 @@ export const prerender = true;
       font-size: var(--fs-xxl);
     }
   }
-  
+
   .selector {
     margin-top: 3rem;
+    width: 100%;
+    overflow-x: auto;
+    /* margin-bottom: 0.5rem; */
+    border-bottom: 2px solid var(--color-divider);
+    scrollbar-width: none;
+    -ms-overflow-style: none;  
   }
 
+  .selector::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .tabs-container {
+    min-width: 100%;
+  }
+
+
   .tabs-list {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    & a{
+    display: flex;
+    gap: 0.5rem;
+    white-space: nowrap;
+    min-width: max-content;
+
+    & a {
+      padding: 1rem 1rem 0.5rem;
+      border-top: 2px solid var(--color-divider);
+      border-left: 2px solid var(--color-divider);
+      border-right: 2px solid var(--color-divider);
+      border-bottom: none;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      flex-grow: 1;
+      position: relative;
+      cursor: pointer;
+
+      &:hover {
+        background-color: rgb(17 17 17);
+      }
+    }
+    & a.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--resalt);
+      border-radius: 3px;
+    }
+
+    & span {
       font-family: "Clash";
       font-weight: 500;
       font-size: var(--fs-md);
+      text-decoration: none;
+      white-space: nowrap;
     }
   }
-/*   
-  .tabs-container {
-    width: 100%;
-    overflow-x: auto;
-  }
-  
-  .tabs-list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .tabs-list li {
-    padding: 0.75rem 1.5rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .tabs-list li a {
-    text-decoration: none;
-    color: #777;
-    font-weight: 500;
-  }
-  
-  .tabs-list li:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-  
-  .tabs-list li.active {
-    border-bottom: 3px solid #ff6b6b;
-  }
-  
-  .tabs-list li.active a {
-    color: #ff6b6b;
-    font-weight: 700;
-  }
-  
-  @media (max-width: 768px) {
-    .tabs-list {
-      width: max-content;
-    }
-  } */
 </style>

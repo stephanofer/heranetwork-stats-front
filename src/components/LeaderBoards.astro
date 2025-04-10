@@ -16,18 +16,93 @@ const data = await getLeaderboard({ mode, type });
 ---
 
 <div class="leaderboard-container">
-  {
-    data && data.length > 0 ? (
-      data.map((player) => <div class="name">{player.userProfile.lastNickname}</div>)
-    ) : (
-      <div class="no-data">No se encontraron resultados</div>
-    )
-  }
+  <div class="title">
+    <span class="rank">#</span>
+    <span class="player">Jugador</span>
+    <span class="value">Valor</span>
+    <span class="update">Ultima Actualizacion</span>
+  </div>
+  <div class="content">
+    {
+      data && data.length > 0 ? (
+        data.map((player) => (
+          <div class="data">
+            <span class="rank">{player.rank}</span>
+            <span class="player">{player.userProfile.lastNickname}</span>
+            <span class="value">{player.value}</span>
+            <span class="update">{player.dailyDelta}</span>
+          </div>
+        ))
+      ) : (
+        <div class="no-data">No se encontraron resultados</div>
+      )
+    }
+  </div>
 </div>
 
 <style>
+  .leaderboard-container {
+    border: 1px solid var(--color-divider);
+    padding: 2.5rem;
+  }
 
-  .name{
-    font-family: "Press";
+  .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+
+    & span {
+      font-weight: 500;
+      font-size: var(--fs-md);
+      opacity: 0.4;
+    }
+  }
+
+  /* Common column classes for consistent alignment */
+  .rank {
+    width: 30%;
+    text-align: left;
+  }
+
+  .player {
+    width: 30%;
+    text-align: left;
+  }
+
+  .value {
+    width: 20%;
+    text-align: left;
+  }
+
+  .update {
+    width: 20%;
+    text-align: left;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .data {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-divider);
+    border-radius: 1rem;
+    padding: 2rem 1rem;
+    cursor: pointer;
+
+    & span {
+      font-family: "Press";
+    }
+
+    & span:last-child {
+      text-align: center;
+    }
   }
 </style>
