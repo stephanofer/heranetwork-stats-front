@@ -1,15 +1,33 @@
 ---
 import type { Modes, TypesLeaderBoard } from "@/utils";
 import { getLeaderboard } from "@/services/leaderboard";
+import Trophy from "@/assets/Trophy.astro";
+import { Image } from "astro:assets";
+import Add from "@/assets/Add.astro";
 
 interface Props {
   mode: Modes;
   type: TypesLeaderBoard;
 }
 
+const typeDisplayMap: Record<TypesLeaderBoard, string> = {
+  kill: "Kills",
+  elo: "ELO",
+  koth: "KOTHs",
+  kd: "K/D",
+  maxstreak: "Mayor Racha",
+  level: "Nivel",
+};
+
 const { mode, type } = Astro.props;
 
 const data = await getLeaderboard({ mode, type });
+
+const trophyColors = {
+  1: "#FFD700",
+  2: "#C0C0C0",
+  3: "#CD7F32",
+};
 
 // Cache control for performance optimization
 // Astro.response.headers.set("Cache-Control", "public, max-age=30");
@@ -19,7 +37,7 @@ const data = await getLeaderboard({ mode, type });
   <div class="title">
     <span class="rank">#</span>
     <span class="player">Jugador</span>
-    <span class="value">Valor</span>
+    <span class="value">{typeDisplayMap[type]}</span>
     <span class="update">Ultima Actualizacion</span>
   </div>
   <div class="content">
@@ -27,10 +45,35 @@ const data = await getLeaderboard({ mode, type });
       data && data.length > 0 ? (
         data.map((player) => (
           <div class="data">
-            <span class="rank">{player.rank}</span>
-            <span class="player">{player.userProfile.lastNickname}</span>
+            <span class="rank">
+              {player.rank <= 3 ? (
+                <Trophy
+                  color={trophyColors[player.rank as keyof typeof trophyColors]}
+                />
+              ) : (
+                <span class="numeric-rank">{player.rank}</span>
+              )}
+            </span>
+            <span class="player">
+              <Image
+                src={
+                  player.userProfile.premiumId
+                    ? `https://render.crafty.gg/3d/bust/${player.userProfile.premiumId}`
+                    : player.userProfile.skinUUID
+                      ? `https://render.crafty.gg/3d/bust/${player.userProfile.skinUUID}`
+                      : `https://render.crafty.gg/3d/bust/null`
+                }
+                alt={"asd"}
+                width={60}
+                height={60}
+              />
+              {player.userProfile.lastNickname}
+            </span>
             <span class="value">{player.value}</span>
-            <span class="update">{player.dailyDelta}</span>
+            <span class="update">
+                {/* <Add color="#4CAF50" /> */}
+              {player.dailyDelta}
+            </span>
           </div>
         ))
       ) : (
@@ -62,23 +105,31 @@ const data = await getLeaderboard({ mode, type });
 
   /* Common column classes for consistent alignment */
   .rank {
-    width: 30%;
+    width: 5%;
     text-align: left;
+    align-content: center;
   }
 
   .player {
     width: 30%;
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .value {
     width: 20%;
     text-align: left;
+    align-content: center;
   }
 
   .update {
     width: 20%;
-    text-align: left;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    align-content: center;
   }
 
   .content {
@@ -98,7 +149,9 @@ const data = await getLeaderboard({ mode, type });
     cursor: pointer;
 
     & span {
-      font-family: "Press";
+      font-family: "Seven";
+      font-weight: 900;
+      font-size: var(--fs-md);
     }
 
     & span:last-child {
