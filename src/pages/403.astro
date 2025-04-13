@@ -1,0 +1,12 @@
+---
+import ErrorLayout from "@/components/ErrorLayout.astro";
+
+export const prerender = true;
+---
+
+<ErrorLayout
+  errorCode="403"
+  title="Acceso denegado"
+  description="No tienes permiso para acceder a esta página. Por favor, verifica tus credenciales o contacta con el administrador."
+  pageTitle="Acceso denegado - Hera Network"
+/>

@@ -44,10 +44,12 @@ const trophyColors = {
     {
       data && data.length > 0 ? (
         data.map((player) => (
-          <div class="data">
+          <a class="data" href={`players/${player.userProfile.uuid}`}>
             <span class="rank">
               {player.rank <= 3 ? (
                 <Trophy
+                  width={32}
+                  height={32}
                   color={trophyColors[player.rank as keyof typeof trophyColors]}
                 />
               ) : (
@@ -66,15 +68,16 @@ const trophyColors = {
                 alt={"asd"}
                 width={60}
                 height={60}
+                class="player-image"
               />
               {player.userProfile.lastNickname}
             </span>
             <span class="value">{player.value}</span>
             <span class="update">
-                {/* <Add color="#4CAF50" /> */}
+              {/* <Add color="#4CAF50" size={24}/> */}
               {player.dailyDelta}
             </span>
-          </div>
+          </a>
         ))
       ) : (
         <div class="no-data">No se encontraron resultados</div>
@@ -126,10 +129,11 @@ const trophyColors = {
 
   .update {
     width: 20%;
-    /* display: flex; */
-    /* justify-content: center; */
-    /* align-items: center; */
     align-content: center;
+    /* text-align: left; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* gap: 0.3rem; */
   }
 
   .content {
@@ -145,8 +149,17 @@ const trophyColors = {
     margin-bottom: 0.5rem;
     border: 1px solid var(--color-divider);
     border-radius: 1rem;
-    padding: 2rem 1rem;
+    padding: 1rem 0.5rem;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 200ms ease;
+
+    &:hover {
+      background-color: rgb(60 60 60 / 0.3);
+
+      transform: translateX(-1rem);
+    }
+
+
 
     & span {
       font-family: "Seven";
@@ -158,4 +171,6 @@ const trophyColors = {
       text-align: center;
     }
   }
+
+
 </style>
