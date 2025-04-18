@@ -4,6 +4,8 @@ import { getLeaderboard } from "@/services/leaderboard";
 import Trophy from "@/assets/Trophy.astro";
 import { Image } from "astro:assets";
 import Add from "@/assets/Add.astro";
+import Sword from "@/assets/Sword.astro";
+import Level from "@/assets/Level.astro";
 
 interface Props {
   mode: Modes;
@@ -29,6 +31,37 @@ const trophyColors = {
   3: "#CD7F32",
 };
 
+const typeIconMap: Partial<Record<TypesLeaderBoard, any>> = {
+  kill: {
+    component: Sword,
+    color: "#fa4f52",
+  },
+  // deaths: DeathIcon,
+  elo: {
+    component: null,
+    color: null,
+  },
+  kd: {
+    component: null,
+    color: null,
+  },
+  koth: {
+    component: null,
+    color: null,
+  },
+  maxstreak: {
+    component: null,
+    color: null,
+  },
+  level: {
+    component: Level,
+    color: "#ffd70a",
+  },
+};
+
+const IconComponent = typeIconMap[type].component;
+const IconColor = typeIconMap[type].color;
+
 // Cache control for performance optimization
 // Astro.response.headers.set("Cache-Control", "public, max-age=30");
 ---
@@ -38,13 +71,16 @@ const trophyColors = {
     <span class="rank">#</span>
     <span class="player">Jugador</span>
     <span class="value">{typeDisplayMap[type]}</span>
-    <span class="update">Ultima Actualizacion</span>
+    <span class="update">Ultima Actualización</span>
   </div>
   <div class="content">
     {
       data && data.length > 0 ? (
         data.map((player) => (
-          <a class="data" href={`players/${player.userProfile.uuid}`}>
+          <a
+            class={`data ${player.rank <= 3 ? `top-${player.rank}` : ""}`}
+            href={`players/${player.userProfile.uuid}`}
+          >
             <span class="rank">
               {player.rank <= 3 ? (
                 <Trophy
@@ -72,10 +108,17 @@ const trophyColors = {
               />
               {player.userProfile.lastNickname}
             </span>
-            <span class="value">{player.value}</span>
+            <span class="value">
+              <div class="value-content">
+                {IconComponent && <IconComponent size={24} color={IconColor} />}
+                <span>{player.value}</span>
+              </div>
+            </span>
             <span class="update">
-              {/* <Add color="#4CAF50" size={24}/> */}
-              {player.dailyDelta}
+              <div class="update-content">
+                {player.dailyDelta > 0 && <Add color="#4CAF50" size={24} />}
+                <span class="update-value">{player.dailyDelta}</span>
+              </div>
             </span>
           </a>
         ))
@@ -89,7 +132,11 @@ const trophyColors = {
 <style>
   .leaderboard-container {
     border: 1px solid var(--color-divider);
-    padding: 2.5rem;
+    padding: 1rem;
+
+    @media (width > 1024px) {
+      padding: 2.5rem;
+    }
   }
 
   .title {
@@ -101,14 +148,18 @@ const trophyColors = {
 
     & span {
       font-weight: 500;
-      font-size: var(--fs-md);
+      font-size: var(--fs-sm);
       opacity: 0.4;
+
+      @media (width > 1024px) {
+        font-size: var(--fs-md);
+      }
     }
   }
 
   /* Common column classes for consistent alignment */
   .rank {
-    width: 5%;
+    width: 10%;
     text-align: left;
     align-content: center;
   }
@@ -118,7 +169,15 @@ const trophyColors = {
     text-align: left;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+
+
+    @media (width > 1024px) {
+      font-size: var(--fs-md);
+      flex-direction: row;
+      gap: 1rem;
+    }
   }
 
   .value {
@@ -127,13 +186,18 @@ const trophyColors = {
     align-content: center;
   }
 
+  .value-content {
+    display: flex;
+    gap: 0.3rem;
+  }
+
   .update {
     width: 20%;
     align-content: center;
-    /* text-align: left; */
-    /* display: flex; */
-    /* align-items: center; */
-    /* gap: 0.3rem; */
+  }
+  .update-content {
+    display: flex;
+    justify-content: center;
   }
 
   .content {
@@ -151,16 +215,15 @@ const trophyColors = {
     border-radius: 1rem;
     padding: 1rem 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 200ms ease;
+    transition:
+      background-color 0.2s ease,
+      transform 200ms ease;
 
     &:hover {
       background-color: rgb(60 60 60 / 0.3);
 
       transform: translateX(-1rem);
     }
-
-
-
     & span {
       font-family: "Seven";
       font-weight: 900;
@@ -172,5 +235,30 @@ const trophyColors = {
     }
   }
 
+  .top-1 {
+    background-image: linear-gradient(
+      90deg,
+      rgba(255, 215, 0, 0.15),
+      rgba(255, 215, 0, 0.05) 50%,
+      rgba(255, 215, 0, 0.01) 90%
+    );
+  }
 
+  .top-2 {
+    background-image: linear-gradient(
+      90deg,
+      rgba(192, 192, 192, 0.15),
+      rgba(192, 192, 192, 0.05) 50%,
+      rgba(192, 192, 192, 0.01) 90%
+    );
+  }
+
+  .top-3 {
+    background-image: linear-gradient(
+      90deg,
+      rgba(205, 127, 50, 0.15),
+      rgba(205, 127, 50, 0.05) 50%,
+      rgba(205, 127, 50, 0.01) 90%
+    );
+  }
 </style>
