@@ -1,10 +1,8 @@
-
 *,
 *::after,
 *::before {
   box-sizing: border-box;
   margin: 0;
-  /* border: 1px solid red; */
 }
 
 :root {
@@ -20,7 +18,6 @@
   --resalt: rgb(0 130 230);
   --color-divider: rgb(20 20 20);
   --color-opacity: rgb(129 129 129);
-
 }
 
 @font-face {
@@ -55,7 +52,6 @@
   font-display: swap;
   src: url("/fonts/Seven.woff2") format("woff2");
 }
-
 
 html,
 body {

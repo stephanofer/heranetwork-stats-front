@@ -13,7 +13,7 @@ interface Props {
 }
 
 const typeDisplayMap: Record<TypesLeaderBoard, string> = {
-  kill: "Kills",
+  kills: "Kills",
   elo: "ELO",
   koth: "KOTHs",
   kd: "K/D",
@@ -25,6 +25,8 @@ const { mode, type } = Astro.props;
 
 const data = await getLeaderboard({ mode, type });
 
+console.log(data);
+
 const trophyColors = {
   1: "#FFD700",
   2: "#C0C0C0",
@@ -32,7 +34,7 @@ const trophyColors = {
 };
 
 const typeIconMap: Partial<Record<TypesLeaderBoard, any>> = {
-  kill: {
+  kills: {
     component: Sword,
     color: "#fa4f52",
   },
@@ -157,7 +159,6 @@ const IconColor = typeIconMap[type].color;
     }
   }
 
-  /* Common column classes for consistent alignment */
   .rank {
     width: 10%;
     text-align: left;

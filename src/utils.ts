@@ -1,5 +1,6 @@
-export type Modes = "rpg" | "survi"
-export type TypesLeaderBoard = "kill" | "kd" | "maxstreak" | "elo" | "level" | "koth"
+export type Modes = "rpg" | "survival"
+export type TypesLeaderBoardRPG = "kills" | "kd" | "maxstreak" | "elo" | "level" | "koth"
+export type TypesLeaderBoardSurvival = "kills" | "kd" | "maxstreak" | "elo" | "koth"
 
 
 interface UserProfile{
@@ -12,6 +13,7 @@ interface UserProfile{
     primaryGroup: string,
     skinUUID: string | null
 }
+
 export interface LeaderboardEntry {
     rank: number;
     userProfile: UserProfile,

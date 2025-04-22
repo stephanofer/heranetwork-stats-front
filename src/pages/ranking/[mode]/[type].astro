@@ -1,12 +1,12 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import LeaderBoards from "@/components/LeaderBoards.astro";
-import type { Modes, TypesLeaderBoard } from "@/utils";
+import type { Modes, TypesLeaderBoardRPG } from "@/utils";
 
 export function getStaticPaths() {
-  const modes: Modes[] = ["rpg", "survi"];
-  const types: TypesLeaderBoard[] = [
-    "kill",
+  const modes: Modes[] = ["rpg", "survival"];
+  const types: TypesLeaderBoardRPG[] = [
+    "kills",
     "kd",
     "maxstreak",
     "elo",
@@ -43,7 +43,7 @@ export const prerender = true;
         <div class="tabs-list">
           <a
             href={`/ranking/${mode}/kill`}
-            class={type === "kill" ? "active" : ""}><span> Kills</span></a
+            class={type === "kills" ? "active" : ""}><span> Kills</span></a
           >
           <a class={type === "kd" ? "active" : ""} href={`/ranking/${mode}/kd`}
             ><span> K/D</span></a

@@ -1,6 +1,5 @@
 ---
-import SectionContainer from "@/components/SectionContainer.astro";
-import { Image, Picture } from "astro:assets";
+import { Picture } from "astro:assets";
 import logoRPG from "@/assets/images/stats.png";
 import logoSURVI from "@/assets/images/store.png";
 import ArrowRight from "@/assets/Arrow-right.astro";
@@ -19,8 +18,7 @@ import ArrowRight from "@/assets/Arrow-right.astro";
     <div class="select-container">
       <h3>Survival RPG</h3>
       <p>
-        Un modo de juego RPG donde debes sobrevivir, construir y explorar en un
-        mundo lleno de aventuras y desafíos
+        Explora los rankings en diferentes tipos como kills, KD ratio, rachas, ELO, niveles y King of the Hill.
       </p>
       <Picture
         src={logoRPG}
@@ -34,7 +32,7 @@ import ArrowRight from "@/assets/Arrow-right.astro";
       <div class="more-details">
         <span>Ver mas detalles</span>
         <div>
-          <a class="link" href="/ranking/rpg/kill"
+          <a class="link" href="/ranking/rpg/kills"
             >Ingresar
             <ArrowRight width={16} height={16} />
           </a>
@@ -44,8 +42,8 @@ import ArrowRight from "@/assets/Arrow-right.astro";
     <div class="select-container">
       <h3>Survival 1.21.5</h3>
       <p>
-        Un modo de juego RPG donde debes sobrevivir, construir y explorar en un
-        mundo lleno de aventuras y desafíos
+        Explora los rankings en diferentes tipos como kills, KD ratio, rachas, ELO, niveles y King of the Hill.
+
       </p>
       <Picture
         src={logoSURVI}
@@ -59,7 +57,7 @@ import ArrowRight from "@/assets/Arrow-right.astro";
       <div class="more-details">
         <span>Ver mas detalles</span>
         <div>
-          <a class="link" href="/ranking/cpvp/kill"
+          <a class="link" href="/ranking/survival/kills"
             >Ingresar
             <ArrowRight width={16} height={16} />
           </a>
@@ -157,6 +155,7 @@ import ArrowRight from "@/assets/Arrow-right.astro";
     );
     background-clip: text;
     color: transparent;
+    text-align: center;
 
     @media (width > 1024px) {
       display: flex;
@@ -214,6 +213,7 @@ import ArrowRight from "@/assets/Arrow-right.astro";
       text-decoration: underline;
       cursor: pointer;
       color: var(--color-opacity);
+      transition: color 150ms ease-in-out;
 
       &:hover {
         color: var(--resalt);

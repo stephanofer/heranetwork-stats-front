@@ -13,8 +13,12 @@ export async function getLeaderboard({
     const defaultUrl =
       mode === "rpg" ? `${API_RPG}?type=${type}` : `${API_SURVI}?type=${type}`;
 
+    console.log(defaultUrl);
+
     const response = await fetch(defaultUrl);
     const result: LeaderboardResponse = await response.json();
+
+    console.log(result);
 
     return result.data;
   } catch (error) {
