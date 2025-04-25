@@ -1,31 +1,25 @@
 ---
-import type { Modes, TypesLeaderBoard } from "@/utils";
+import type { Modes, TypesLeaderBoardGlobal } from "@/utils";
 import { getLeaderboard } from "@/services/leaderboard";
-import Trophy from "@/assets/Trophy.astro";
+import Trophy from "@/assets/icons/Trophy.svg";
 import { Image } from "astro:assets";
-import Add from "@/assets/Add.astro";
-import Sword from "@/assets/Sword.astro";
-import Level from "@/assets/Level.astro";
+import Add from "@/assets/icons/Add.svg";
+import Sword from "@/assets/icons/Sword.svg";
+import KD from "@/assets/icons/KD.svg";
+import Elo from "@/assets/icons/Elo.svg";
+import Koth from "@/assets/icons/Koth.svg";
+import MaxStreak from "@/assets/icons/MaxStreak.svg";
+import Level from "@/assets/icons/Level.svg";
+import {typeLabels} from '@/utils'
 
 interface Props {
   mode: Modes;
-  type: TypesLeaderBoard;
+  type: TypesLeaderBoardGlobal;
 }
-
-const typeDisplayMap: Record<TypesLeaderBoard, string> = {
-  kills: "Kills",
-  elo: "ELO",
-  koth: "KOTHs",
-  kd: "K/D",
-  maxstreak: "Mayor Racha",
-  level: "Nivel",
-};
 
 const { mode, type } = Astro.props;
 
-const data = await getLeaderboard({ mode, type });
-
-console.log(data);
+const {data} = await getLeaderboard({ mode, type });
 
 const trophyColors = {
   1: "#FFD700",
@@ -33,36 +27,36 @@ const trophyColors = {
   3: "#CD7F32",
 };
 
-const typeIconMap: Partial<Record<TypesLeaderBoard, any>> = {
+const typeIconMap: Record<TypesLeaderBoardGlobal, any> = {
   kills: {
     component: Sword,
-    color: "#fa4f52",
-  },
-  // deaths: DeathIcon,
-  elo: {
-    component: null,
-    color: null,
+    color: "#DC143C",
   },
   kd: {
-    component: null,
-    color: null,
+    component: KD,
+    color: "#DC143C",
+  },
+  elo: {
+    component: Elo,
+    color: "#FFD700",
   },
   koth: {
-    component: null,
-    color: null,
+    component: Koth,
+    color: "#B10DC9",
   },
   maxstreak: {
-    component: null,
-    color: null,
+    component: MaxStreak,
+    color: "#FF851B",
   },
   level: {
     component: Level,
-    color: "#ffd70a",
+    color: "#2ECC40",
   },
 };
 
 const IconComponent = typeIconMap[type].component;
 const IconColor = typeIconMap[type].color;
+
 
 // Cache control for performance optimization
 // Astro.response.headers.set("Cache-Control", "public, max-age=30");
@@ -72,7 +66,7 @@ const IconColor = typeIconMap[type].color;
   <div class="title">
     <span class="rank">#</span>
     <span class="player">Jugador</span>
-    <span class="value">{typeDisplayMap[type]}</span>
+    <span class="value">{typeLabels[type]}</span>
     <span class="update">Ultima Actualización</span>
   </div>
   <div class="content">
@@ -110,9 +104,11 @@ const IconColor = typeIconMap[type].color;
               />
               {player.userProfile.lastNickname}
             </span>
+            
             <span class="value">
               <div class="value-content">
-                {IconComponent && <IconComponent size={24} color={IconColor} />}
+                {IconComponent && <IconComponent width={24} height={24} color={IconColor} />}
+                {/* <Sword width={100} height={100} color={IconColor}/> */}
                 <span>{player.value}</span>
               </div>
             </span>

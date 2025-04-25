@@ -37,15 +37,6 @@
 }
 
 @font-face {
-  font-family: "Press";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/Press.woff2") format("woff2");
-}
-
-
-@font-face {
   font-family: "Seven";
   font-style: normal;
   font-weight: 400;
