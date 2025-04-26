@@ -10,6 +10,7 @@ import Elo from "@/assets/icons/Elo.svg";
 import Koth from "@/assets/icons/Koth.svg";
 import MaxStreak from "@/assets/icons/MaxStreak.svg";
 import Level from "@/assets/icons/Level.svg";
+import Subtract from "@/assets/icons/Subtract.svg";
 import {typeLabels} from '@/utils'
 
 interface Props {
@@ -42,7 +43,7 @@ const typeIconMap: Record<TypesLeaderBoardGlobal, any> = {
   },
   koth: {
     component: Koth,
-    color: "#B10DC9",
+    color: "#DC143C",
   },
   maxstreak: {
     component: MaxStreak,
@@ -56,6 +57,7 @@ const typeIconMap: Record<TypesLeaderBoardGlobal, any> = {
 
 const IconComponent = typeIconMap[type].component;
 const IconColor = typeIconMap[type].color;
+
 
 
 // Cache control for performance optimization
@@ -114,8 +116,10 @@ const IconColor = typeIconMap[type].color;
             </span>
             <span class="update">
               <div class="update-content">
-                {player.dailyDelta > 0 && <Add color="#4CAF50" size={24} />}
-                <span class="update-value">{player.dailyDelta}</span>
+                {player.dailyDelta > 0 && <Add color="#4CAF50" width={24} height={24} />}
+                {player.dailyDelta < 0 && <Subtract color="#F44336" width={24} height={24} />}
+                <span class="update-value">{player.dailyDelta < 0 ? Math.abs(player.dailyDelta) : player.dailyDelta}</span>
+
               </div>
             </span>
           </a>
