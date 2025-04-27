@@ -11,7 +11,7 @@ import Koth from "@/assets/icons/Koth.svg";
 import MaxStreak from "@/assets/icons/MaxStreak.svg";
 import Level from "@/assets/icons/Level.svg";
 import Subtract from "@/assets/icons/Subtract.svg";
-import {typeLabels} from '@/utils'
+import { typeLabels } from "@/utils";
 
 interface Props {
   mode: Modes;
@@ -20,7 +20,7 @@ interface Props {
 
 const { mode, type } = Astro.props;
 
-const {data} = await getLeaderboard({ mode, type });
+const { data } = await getLeaderboard({ mode, type });
 
 const trophyColors = {
   1: "#FFD700",
@@ -58,18 +58,18 @@ const typeIconMap: Record<TypesLeaderBoardGlobal, any> = {
 const IconComponent = typeIconMap[type].component;
 const IconColor = typeIconMap[type].color;
 
-
-
 // Cache control for performance optimization
 // Astro.response.headers.set("Cache-Control", "public, max-age=30");
 ---
 
 <div class="leaderboard-container">
   <div class="title">
-    <span class="rank">#</span>
-    <span class="player">Jugador</span>
-    <span class="value">{typeLabels[type]}</span>
-    <span class="update">Ultima Actualización</span>
+    <div class="title-text">
+      <span>#</span>
+      <span class="title-player">Jugador</span>
+      <span>{typeLabels[type]}</span>
+      <span>Actu.</span>
+    </div>
   </div>
   <div class="content">
     {
@@ -82,8 +82,8 @@ const IconColor = typeIconMap[type].color;
             <span class="rank">
               {player.rank <= 3 ? (
                 <Trophy
-                  width={32}
-                  height={32}
+                  width={48}
+                  height={48}
                   color={trophyColors[player.rank as keyof typeof trophyColors]}
                 />
               ) : (
@@ -106,20 +106,28 @@ const IconColor = typeIconMap[type].color;
               />
               {player.userProfile.lastNickname}
             </span>
-            
+
             <span class="value">
               <div class="value-content">
-                {IconComponent && <IconComponent width={24} height={24} color={IconColor} />}
-                {/* <Sword width={100} height={100} color={IconColor}/> */}
+                {IconComponent && (
+                  <IconComponent width={24} height={24} color={IconColor} />
+                )}
                 <span>{player.value}</span>
               </div>
             </span>
             <span class="update">
               <div class="update-content">
-                {player.dailyDelta > 0 && <Add color="#4CAF50" width={24} height={24} />}
-                {player.dailyDelta < 0 && <Subtract color="#F44336" width={24} height={24} />}
-                <span class="update-value">{player.dailyDelta < 0 ? Math.abs(player.dailyDelta) : player.dailyDelta}</span>
-
+                {player.dailyDelta > 0 && (
+                  <Add color="#4CAF50" width={24} height={24} />
+                )}
+                {player.dailyDelta < 0 && (
+                  <Subtract color="#F44336" width={24} height={24} />
+                )}
+                <span class="update-value">
+                  {player.dailyDelta < 0
+                    ? Math.abs(player.dailyDelta)
+                    : player.dailyDelta}
+                </span>
               </div>
             </span>
           </a>
@@ -135,87 +143,45 @@ const IconColor = typeIconMap[type].color;
   .leaderboard-container {
     border: 1px solid var(--color-divider);
     padding: 1rem;
-
+    width: 100%;
     @media (width > 1024px) {
       padding: 2.5rem;
     }
   }
-
   .title {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0 1rem;
-    margin-bottom: 1rem;
-
-    & span {
-      font-weight: 500;
-      font-size: var(--fs-sm);
-      opacity: 0.4;
-
-      @media (width > 1024px) {
-        font-size: var(--fs-md);
-      }
-    }
-  }
-
-  .rank {
-    width: 10%;
-    text-align: left;
-    align-content: center;
-  }
-
-  .player {
-    width: 30%;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    flex-direction: column-reverse;
-    gap: 0.5rem;
-
+    font-weight: 500;
+    font-size: var(--fs-sm);
+    opacity: 0.4;
 
     @media (width > 1024px) {
       font-size: var(--fs-md);
-      flex-direction: row;
-      gap: 1rem;
     }
   }
 
-  .value {
-    width: 20%;
+  .title-text,
+  .data {
+    display: grid;
+    /* grid-template-columns: 1.5fr 2fr 1fr 0.7fr; */
+    padding: 1rem 0.5rem;
+
+    grid-template-columns: 0.8fr 1.5fr 1fr 0.7fr;
+    width: 100%;
     text-align: left;
-    align-content: center;
-  }
-
-  .value-content {
-    display: flex;
-    gap: 0.3rem;
-  }
-
-  .update {
-    width: 20%;
-    align-content: center;
-  }
-  .update-content {
-    display: flex;
-    justify-content: center;
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+    /* 
+    @media (width > 1024px) {
+      grid-template-columns: 0.8fr 2fr 1fr 0.7fr;
+    } */
   }
 
   .data {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
     border: 1px solid var(--color-divider);
     border-radius: 1rem;
-    padding: 1rem 0.5rem;
     cursor: pointer;
+
     transition:
       background-color 0.2s ease,
       transform 200ms ease;
@@ -228,12 +194,42 @@ const IconColor = typeIconMap[type].color;
     & span {
       font-family: "Seven";
       font-weight: 900;
-      font-size: var(--fs-md);
-    }
+      font-size: var(--fs-sm);
 
-    & span:last-child {
-      text-align: center;
+      @media (width > 1024px) {
+        font-size: var(--fs-md);
+      }
     }
+  }
+  .update-content,
+  .value-content,
+  .rank {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .data .rank .numeric-rank {
+    font-size: var(--fs-xl);
+    margin-left: 0.5rem;
+  }
+
+  .player {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+
+    @media (width > 1024px) {
+      font-size: var(--fs-md);
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+
+  .title-player {
+    /* text-align: center; */
   }
 
   .top-1 {
