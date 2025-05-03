@@ -77,7 +77,6 @@ const IconColor = typeIconMap[type].color;
         data.map((player) => (
           <a
             class={`data ${player.rank <= 3 ? `top-${player.rank}` : ""}`}
-            href={`players/${player.userProfile.uuid}`}
           >
             <span class="rank">
               {player.rank <= 3 ? (

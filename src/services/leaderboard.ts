@@ -12,32 +12,30 @@ export async function getLeaderboard({
   offset = 0,
 }: LeaderBoardParams): Promise<LeaderboardResponse> {
   try {
-
-    const baseUrl =  mode === "rpg" ? API_RPG : API_SURVI;
+    const baseUrl = mode === "rpg" ? API_RPG : API_SURVI;
     const url = new URL(baseUrl);
 
     url.searchParams.append("type", type);
     url.searchParams.append("limit", limit.toString());
     url.searchParams.append("offset", offset.toString());
 
-    console.log(url.toString());
-
     const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`Server responded with ${response.status}: ${response.statusText}`);
+      throw new Error(
+        `Server responded with ${response.status}: ${response.statusText}`
+      );
     }
-    
 
     const result: LeaderboardResponse = await response.json();
+
     return result;
   } catch (error) {
-    console.error("Error fetching leaderboard data:", error);
     return {
       success: false,
       data: [],
       count: 0,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 }

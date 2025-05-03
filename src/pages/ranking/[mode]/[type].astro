@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import LeaderBoards from "@/components/LeaderBoards.astro";
-import LeaderBoardsSkeleton from '@/components/LeaderBoardsSkeleton.astro'
 import type {
   Modes,
   TypesLeaderBoardRPG,
@@ -63,7 +62,7 @@ export const prerender = true;
       </nav>
     </div>
     <LeaderBoards server:defer type={type} mode={mode}>
-      <LeaderBoardsSkeleton slot="fallback" />
+      <div>Cargando...</div>
     </LeaderBoards>
   </div>
 </BaseLayout>
