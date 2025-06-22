@@ -1,8 +1,4 @@
-import {
-  type LeaderboardEntry,
-  type LeaderBoardParams,
-  type LeaderboardResponse,
-} from "@/utils";
+import { type LeaderBoardParams, type LeaderboardResponse } from "@/utils";
 import { API_RPG, API_SURVI } from "astro:env/server";
 
 export async function getLeaderboard({
