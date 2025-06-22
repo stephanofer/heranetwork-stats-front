@@ -75,12 +75,8 @@ import logoImage from "@/assets/images/heranetwork.png";
   }
 
   .logo-image {
-    display: none;
+    display: flex;
     flex-shrink: 0; 
-
-    @media (width > 1024px) {
-      display: flex;
-    }
 
     & a {
       display: block;
@@ -91,8 +87,12 @@ import logoImage from "@/assets/images/heranetwork.png";
   }
 
   .logo-text {
-    display: flex;
     flex-direction: column;
+    display: none;
+
+    @media (width > 1024px) {
+      display: flex;
+    }
 
     & span:first-child {
       font-weight: 700;
