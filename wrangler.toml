@@ -2,6 +2,9 @@ name = "heranetwork-stats"
 main = "./dist/_worker.js/index.js"
 compatibility_date = "2025-06-22"
 compatibility_flags = ["nodejs_compat"]
+routes = [
+  { pattern = "estadisticas.heramc.net", custom_domain = true }
+]
 
 [assets]
 binding = "ASSETS"
@@ -10,6 +13,3 @@ directory = "./dist"
 [observability]
 enabled = true
 
-routes = [
-  { pattern = "estadisticas.heramc.net", custom_domain = true }
-]
