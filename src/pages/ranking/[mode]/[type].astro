@@ -7,6 +7,7 @@ import type {
   TypesLeaderBoardSurvival,
 } from "@/utils";
 import { typeLabels } from "@/utils";
+import Loader from '@/components/Loader.astro'
 
 export function getStaticPaths() {
   const modes: Modes[] = ["rpg", "survival"];
@@ -62,7 +63,7 @@ export const prerender = true;
       </nav>
     </div>
     <LeaderBoards server:defer type={type} mode={mode}>
-      <div>Cargando...</div>
+      <Loader slot="fallback"/>
     </LeaderBoards>
   </div>
 </BaseLayout>
@@ -144,5 +145,6 @@ export const prerender = true;
       text-decoration: none;
       white-space: nowrap;
     }
+
   }
 </style>

@@ -18,15 +18,14 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
     <div class="select-container">
       <h3>Survival RPG</h3>
       <p>
-        Explora los rankings en diferentes tipos como kills, KD ratio, rachas, ELO, niveles y King of the Hill.
+        Explora los rankings en diferentes tipos como kills, KD ratio, rachas,
+        ELO, niveles y King of the Hill.
       </p>
       <Picture
         src={logoRPG}
-        widths={[300, 600, 900, 1200]}
-        sizes="(max-width: 640px) 300px, (max-width: 1024px) 600px"
-        quality={85}
-        alt="Site Logo"
-        height={300}
+        alt="Modalidad Survival RPG"
+        priority
+        layout="constrained"
       />
 
       <div class="more-details">
@@ -40,19 +39,12 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
       </div>
     </div>
     <div class="select-container">
-      <h3>Survival 1.21.5</h3>
+      <h3>Survival 1.21.6</h3>
       <p>
-        Explora los rankings en diferentes tipos como kills, KD ratio, rachas, ELO, niveles y King of the Hill.
-
+        Explora los rankings en diferentes tipos como kills, KD ratio, rachas,
+        ELO, niveles y King of the Hill.
       </p>
-      <Picture
-        src={logoSURVI}
-        widths={[300, 600, 900, 1200]}
-        sizes="(max-width: 640px) 300px, (max-width: 1024px) 600px"
-        quality={85}
-        alt="Site Logo"
-        height={300}
-      />
+      <Picture src={logoSURVI} alt="Modalidad Survival 1.21.6" priority layout="constrained" />
 
       <div class="more-details">
         <span>Ver mas detalles</span>
@@ -171,9 +163,6 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
   img {
     margin-top: 1.5rem;
     border-radius: 1rem;
-    height: auto;
-    max-width: 100%;
-    object-fit: contain;
   }
 
   .more-details {

@@ -1,19 +1,27 @@
 // @ts-check
 import { defineConfig, envField } from "astro/config";
-
-import node from "@astrojs/node";
-
-import { loadEnv } from "vite";
+// import { loadEnv } from "vite";
 import sentry from "@sentry/astro";
 
-const {SECRET_SENTRY_AUTH_TOKEN, SECRET_SENTRY_DSN} = loadEnv(process.env.NODE_ENV || "", process.cwd(), '');
+import cloudflare from "@astrojs/cloudflare";
 
+// const { SECRET_SENTRY_AUTH_TOKEN, SECRET_SENTRY_DSN } = loadEnv(
+//   process.env.NODE_ENV || "",
+//   process.cwd(),
+//   ""
+// // );
+
+const SECRET_SENTRY_DSN = process.env.SECRET_SENTRY_DSN;
+const SECRET_SENTRY_AUTH_TOKEN = process.env.SECRET_SENTRY_AUTH_TOKEN;
 
 export default defineConfig({
   output: "server",
-  adapter: node({
-    mode: "standalone",
-  }),
+  image: {
+    responsiveStyles: true,
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+    },
+  },
 
   env: {
     schema: {
@@ -38,4 +46,13 @@ export default defineConfig({
       },
     }),
   ],
+
+  adapter: cloudflare({
+    imageService: "compile"
+  }),
+  site: "https://estadisticas.heramc.net",
+  base: "/",
+  vite: {
+    logLevel: "error",
+  },
 });

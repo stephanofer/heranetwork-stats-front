@@ -1,3 +1,14 @@
-# Hera Network Front
+# Hera Network Stats Frontend
 
-![Portal](./public/assets/portal.png)
+A web application for displaying player statistics and leaderboards for all game modes on the Hera Network.
+
+## About
+
+This is a statistics page that shows player rankings across different game modes:
+- **Survival RPG**: Kills, KD ratio, Max Streak, ELO, Level, King of the Hill
+- **Survival 1.21.5**: Kills, KD ratio, Max Streak, ELO, King of the Hill
+
+## Tech Stack
+
+- **Framework**: Astro 
+- **Monitoring**: Sentry integration

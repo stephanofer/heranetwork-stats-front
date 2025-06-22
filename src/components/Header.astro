@@ -9,7 +9,12 @@ import logoImage from "@/assets/images/heranetwork.png";
       <div class="logo">
         <div class="logo-image">
           <a href="/" aria-label="Home page">
-            <Image src={logoImage} alt="Site Logo" width={60} height={60} />
+            <Image
+              src={logoImage}
+              alt="Hera Network Logo"
+              layout="constrained"
+              priority
+            />
           </a>
         </div>
 
@@ -47,6 +52,11 @@ import logoImage from "@/assets/images/heranetwork.png";
 </header>
 
 <style>
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  
   .site-header {
     padding: 1.5rem;
   }
@@ -58,28 +68,26 @@ import logoImage from "@/assets/images/heranetwork.png";
     justify-content: space-between;
   }
 
-  .container {
-    max-width: 1440px;
-    margin: 0 auto;
-  }
-
   .logo {
-    display: none;
     display: flex;
     align-items: center;
     gap: 1rem;
   }
 
-  img {
-    display: block;
-  }
-
   .logo-image {
     display: none;
+    flex-shrink: 0; 
 
     @media (width > 1024px) {
       display: flex;
     }
+
+    & a {
+      display: block;
+      width: 60px;
+      height: 60px;
+    }
+
   }
 
   .logo-text {
@@ -126,6 +134,20 @@ import logoImage from "@/assets/images/heranetwork.png";
         height: 1px;
         background-color: white;
       }
+    }
+  }
+
+  @media (width > 1200px) {
+    .logo-image a {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  @media (width <= 1024px) {
+    .logo-image a {
+      width: 50px;
+      height: 50px;
     }
   }
 </style>
