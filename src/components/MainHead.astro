@@ -14,7 +14,7 @@ const {
 } = Astro.props;
 ---
 
-<meta charset="UTF-8" />
+<title>{title}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
@@ -23,6 +23,9 @@ const {
 <meta name="robots" content="index, follow" />
 
 <meta name="keywords" content="heranetwork estadísticas" />
+<meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+<meta http-equiv="X-Frame-Options" content="DENY">
 
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -52,4 +55,3 @@ const {
   }
 </script>
 
-<title>{title}</title>

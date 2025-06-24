@@ -15,7 +15,7 @@
   --fs-xxl: clamp(2.44rem, 1.3vi + 2.12rem, 3.16rem);
   --fs-xxxl: clamp(3.05rem, 2.1vi + 2.53rem, 6.21rem);
   --foreground: #000;
-  --resalt: rgb(0 130 230);
+  --resalt: rgb(48 165 255);
   --color-divider: rgb(20 20 20);
   --color-opacity: rgb(129 129 129);
 }
