@@ -6,7 +6,7 @@
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: dark;
   --fs-sm: clamp(0.8rem, -0.09vi + 0.82rem, 0.75rem);
   --fs-base: clamp(1rem, 0vi + 1rem, 1rem);
   --fs-md: clamp(1.2rem, 0.15vi + 1.21rem, 1.33rem);
