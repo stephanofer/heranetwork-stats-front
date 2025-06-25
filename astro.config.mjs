@@ -2,8 +2,8 @@
 import { defineConfig, envField } from "astro/config";
 // import { loadEnv } from "vite";
 import sentry from "@sentry/astro";
-
 import cloudflare from "@astrojs/cloudflare";
+// https://astro.build/config
 
 // const { SECRET_SENTRY_AUTH_TOKEN, SECRET_SENTRY_DSN } = loadEnv(
 //   process.env.NODE_ENV || "",

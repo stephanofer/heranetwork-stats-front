@@ -11,7 +11,8 @@
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.0",
     "@sentry/astro": "^9.15.0",
-    "astro": "^5.10.0",
+    "@unpic/astro": "^1.0.0",
+    "astro": "^5.10.1",
     "astro-seo": "^0.8.4",
     "sharp": "^0.34.1"
   },
