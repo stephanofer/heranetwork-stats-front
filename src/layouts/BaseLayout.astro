@@ -12,7 +12,7 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script is:inline>
+    <!-- <script is:inline>
       function loadGTM() {
         (function(w,d,s,l,i){
           w[l]=w[l]||[];
@@ -26,7 +26,7 @@ const { title } = Astro.props;
       }
       window.addEventListener('scroll', loadGTM, { once: true });
       window.addEventListener('click', loadGTM, { once: true });
-    </script>
+    </script> -->
     <ClientRouter />
     <MainHead title={title} />
   </head>
