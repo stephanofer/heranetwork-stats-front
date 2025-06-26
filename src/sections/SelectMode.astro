@@ -1,13 +1,11 @@
 ---
-import { Picture } from "astro:assets";
-import logoRPG from "@/assets/images/stats.png";
-import logoSURVI from "@/assets/images/store.png";
+import { Image } from "@unpic/astro";
 import ArrowRight from "@/assets/icons/ArrowRight.svg";
 ---
 
 <div class="container">
   <div class="container-title">
-    <h1 transition:name="title">Selecciona tu modalidad</h1>
+    <h1>Selecciona tu modalidad</h1>
     <h2>
       Elige entre diferentes modalidades para visualizar tus estadísticas y los
       rankings
@@ -21,13 +19,24 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
         Explora los rankings en diferentes tipos como kills, KD ratio, rachas,
         ELO, niveles y King of the Hill.
       </p>
-      <Picture
-        src={logoRPG}
-        alt="Modalidad Survival RPG"
-        priority
-        layout="constrained"
-      />
 
+      <div class="image-container">
+        <Image
+          src="https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/f131c07d-1317-4415-6aa0-ca113ac67400"
+          alt="asd"
+          priority
+          layout="constrained"
+          width={500}
+          height={300}
+          breakpoints={[320, 640, 768]}
+          operations={{
+            cloudflare_images: {
+              quality: 75,
+              format: "webp",
+            },
+          }}
+        />
+      </div>
       <div class="more-details">
         <span>Ver mas detalles</span>
         <div>
@@ -44,12 +53,24 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
         Explora los rankings en diferentes tipos como kills, KD ratio, rachas,
         ELO, niveles y King of the Hill.
       </p>
-      <Picture
-        src={logoSURVI}
-        alt="Modalidad Survival 1.21.6"
-        priority
-        layout="constrained"
-      />
+
+      <div class="image-container">
+        <Image
+          src="https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/554e8066-2623-4a06-4d47-b67ffa01db00"
+          alt="asd"
+          priority
+          layout="constrained"
+          width={500}
+          height={300}
+          breakpoints={[320, 640, 768]}
+          operations={{
+            cloudflare_images: {
+              quality: 75,
+              format: "webp",
+            },
+          }}
+        />
+      </div>
 
       <div class="more-details">
         <span>Ver mas detalles</span>
@@ -81,6 +102,7 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* min-height: 140px; */
   }
 
   .select-mode {
@@ -97,6 +119,7 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
       border-bottom-style: solid;
       flex-grow: 1;
       align-items: center;
+      gap: 0;
     }
 
     & > div:first-child {
@@ -113,12 +136,28 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
       justify-content: center;
 
       @media (width > 1024px) {
+
         padding: 3rem;
       }
     }
 
+    .image-container {
+      min-width: 300px;
+      min-height: 300px;
+
+      @media (width > 1024px) {
+        width: 450px;
+        max-height: 300px;
+      }
+    }
+
+
     & h3 {
       font-size: var(--fs-lg);
+      font-family: "Inter", sans-serif;
+      line-height: 1.2;
+      min-height: 1.2em;
+      margin: 0;
     }
     & p {
       margin-top: 0.5rem;
