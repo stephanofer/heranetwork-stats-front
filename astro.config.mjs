@@ -20,7 +20,6 @@ export default defineConfig({
   
   image: {
     domains: ["imagedelivery.net", "render.crafty.gg"],
-    service: passthroughImageService(), 
   },
 
   env: {
