@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig, envField } from "astro/config";
+import { defineConfig, envField, passthroughImageService } from "astro/config";
 // import { loadEnv } from "vite";
 import sentry from "@sentry/astro";
 import cloudflare from "@astrojs/cloudflare";
@@ -17,8 +17,10 @@ const SECRET_SENTRY_AUTH_TOKEN = process.env.SECRET_SENTRY_AUTH_TOKEN;
 
 export default defineConfig({
   output: "server",
+  
   image: {
     domains: ["imagedelivery.net", "render.crafty.gg"],
+    service: passthroughImageService(), 
   },
 
   env: {
@@ -46,7 +48,7 @@ export default defineConfig({
   ],
 
   adapter: cloudflare({
-    imageService: "compile",
+    imageService: "cloudflare",
   }),
   site: "https://estadisticas.heramc.net",
   base: "/",
