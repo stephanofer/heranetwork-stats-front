@@ -48,7 +48,7 @@ export default defineConfig({
   ],
 
   adapter: cloudflare({
-    imageService: "compile",
+    imageService: "passthrough",
   }),
   site: "https://estadisticas.heramc.net",
   base: "/",
