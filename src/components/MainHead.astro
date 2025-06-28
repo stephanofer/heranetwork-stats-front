@@ -1,5 +1,6 @@
 ---
 import "@/styles/global.css";
+import { SEO } from "astro-seo";
 
 interface Props {
   title?: string;
@@ -9,43 +10,24 @@ interface Props {
 
 const {
   title = "Estadísticas - Hera Network",
-  description = "Estas son las estadísticas",
+  description = "Estadísticas y rankings en Hera Network. Consulta kills, KD ratio, ELO, niveles y King of the Hill en Survival RPG y Survival 1.21.6. Top jugadores, leaderboards detalladas de Minecraft.",
   canonicalUrl = Astro.url.href,
 } = Astro.props;
+
+const seoKeywords =
+  "estadísticas minecraft, ranking heranetwork, kills minecraft, KD ratio, ELO ranking, king of the hill, survival rpg, survival 1.21.6, top jugadores minecraft, leaderboard minecraft, estadísticas jugadores, heramc.net, heranetwork stats";
+
 ---
 
-<title>{title}</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
-<meta name="generator" content={Astro.generator} />
-<meta name="description" content={description} />
-<meta name="author" content="stephanofer" />
-<meta name="robots" content="index, follow" />
-
-<meta name="keywords" content="heranetwork estadísticas" />
-
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:image" content="https://tudominio.com/og-image.jpg" />
-<meta property="og:url" content="https://tudominio.com/ruta-actual" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Hera Network" />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-<meta name="twitter:image" content="https://tudominio.com/twitter-image.jpg" />
-
-<link rel="canonical" href={canonicalUrl} />
-
-
-<script is:inline type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Hera Network",
-    "url": "https://estadisticas.heramc.net",
-    "logo": "https://tudominio.com/logo.png"
-  }
-</script>
+<SEO
+  title={title}
+  description={description}
+  canonical={canonicalUrl}
+  extend={{
+    meta: [
+      { name: "keywords", content: seoKeywords },
+      { name: "author", content: "stephanofer" },
+    ],
+  }}
+/>
 
