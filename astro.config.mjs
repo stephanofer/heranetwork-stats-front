@@ -24,17 +24,19 @@ export default defineConfig({
         context: "server",
         access: "secret",
       }),
+      SECRET_SENTRY_DSN: envField.string({
+        context: "client",
+        access: "public",
+      }),
     },
   },
 
   integrations: [
     sentry({
-      dsn: SECRET_SENTRY_DSN,
-      replaysSessionSampleRate: 0,
-      replaysOnErrorSampleRate: 0,
       sourceMapsUploadOptions: {
         project: "heranetwork-page",
         authToken: SECRET_SENTRY_AUTH_TOKEN,
+        telemetry: false
       },
     }),
   ],
