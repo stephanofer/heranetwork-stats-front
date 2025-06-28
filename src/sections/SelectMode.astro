@@ -19,16 +19,17 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
         ELO, niveles y King of the Hill.
       </p>
 
-      <div class="image-container">
+      <figure class="image-container">
         <img
-          src="https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/f131c07d-1317-4415-6aa0-ca113ac67400/quality=75,w=500,h=300,fit=cover,format=webp"
+          src="https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/f131c07d-1317-4415-6aa0-ca113ac67400/quality=75,w=1500,format=webp"
           alt="Modalidad Survival RPG"
           loading="eager"
           fetchpriority="high"
-          width={500}
-          height={300}
+          decoding="async"
+          width="500"
+          height="300"
         />
-      </div>
+      </figure>
       <div class="more-details">
         <span>Ver mas detalles</span>
         <div>
@@ -46,16 +47,17 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
         ELO, niveles y King of the Hill.
       </p>
 
-      <div class="image-container">
+      <figure class="image-container">
         <img
-          src="https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/554e8066-2623-4a06-4d47-b67ffa01db00/quality=75,w=500,h=300,fit=cover,format=webp"
+          src="https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/554e8066-2623-4a06-4d47-b67ffa01db00/quality=75,w=1500,format=webp"
           alt="Modalidad Survival RPG"
           loading="eager"
           fetchpriority="high"
-          width={500}
-          height={300}
+          decoding="async"
+          width="500"
+          height="300"
         />
-      </div>
+      </figure>
 
       <div class="more-details">
         <span>Ver mas detalles</span>
@@ -125,15 +127,11 @@ import ArrowRight from "@/assets/icons/ArrowRight.svg";
     }
 
     .image-container {
-      max-width: 100%;
-      min-height: 250px;
-      max-height: 250px;
+      width: 100%;
+      height: 200px;
       margin-top: 1.5rem;
-
       @media (width > 1024px) {
-        min-width: 500px;
-        max-width: 500px;
-        min-height: 300px;
+        height: 300px;
       }
 
       & img {
