@@ -1,6 +1,8 @@
 import { type LeaderBoardParams, type LeaderboardResponse } from "@/utils";
 import { API_RPG, API_SURVI } from "astro:env/server";
 
+import * as Sentry from "@sentry/astro";
+
 export async function getLeaderboard({
   mode,
   type,
@@ -16,17 +18,12 @@ export async function getLeaderboard({
     url.searchParams.append("offset", offset.toString());
 
     const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(
-        `Server responded with ${response.status}: ${response.statusText}`
-      );
-    }
-
     const result: LeaderboardResponse = await response.json();
 
     return result;
-  } catch (error) {
+  } catch (error ) {
+    console.log(error)
+    Sentry.captureException(error);
     return {
       success: false,
       data: [],
