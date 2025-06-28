@@ -22,7 +22,6 @@ export async function getLeaderboard({
 
     return result;
   } catch (error ) {
-    console.log(error)
     Sentry.captureException(error);
     return {
       success: false,
