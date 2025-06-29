@@ -96,10 +96,11 @@ const IconColor = typeIconMap[type].color;
                       ? `https://render.crafty.gg/3d/bust/${player.userProfile.skinUUID}`
                       : `https://render.crafty.gg/3d/bust/null`
                 }
-                alt={player.userProfile?.lastNickname || "Player"}
+                alt={`Avatar de ${player.userProfile?.lastNickname || "DESCONOCIDO"}`}
                 width={60}
                 height={60}
                 class="player-image"
+                decoding="async"
               />
               {player.userProfile?.lastNickname}
             </span>

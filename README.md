@@ -20,4 +20,4 @@ This is a statistics page that shows player rankings across different game modes
 - [X] Optimize images loading in the Selection GameMode section (using Cloudflare Images)
 - [X] Add robots.txt
 - [X] Finalize sitemap
-- [ ] Finalize SEO labels (all pages)
+- [X] Finalize SEO labels (all pages)

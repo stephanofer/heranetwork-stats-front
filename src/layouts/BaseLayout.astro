@@ -12,7 +12,7 @@ const { title } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="preload"
       href="/fonts/Inter.woff2"
@@ -34,8 +34,27 @@ const { title } = Astro.props;
       type="font/woff2"
       crossorigin="anonymous"
     />
-    <ClientRouter />
     <MainHead title={title} />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Hera Network Estadísticas",
+        "description": "Estadísticas y rankings de jugadores de Minecraft en Hera Network. Visualiza kills, KD ratio, ELO, niveles y más en Survival RPG y Survival 1.21.6.",
+        "url": "https://estadisticas.heramc.net",
+        "publisher": {
+          "@type": "Person",
+          "name": "stephanofer",
+          "url": "https://stephanofer.com"
+        },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://estadisticas.heramc.net/ranking/{mode}/{type}",
+          "query-input": "required name=mode name=type"
+        }
+      }
+    </script>
+    <ClientRouter />
   </head>
   <body>
     <Header />
@@ -43,5 +62,3 @@ const { title } = Astro.props;
     <Footer />
   </body>
 </html>
-
-<style></style>

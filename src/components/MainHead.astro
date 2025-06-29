@@ -10,13 +10,12 @@ interface Props {
 
 const {
   title = "Estadísticas - Hera Network",
-  description = "Estadísticas y rankings en Hera Network. Consulta kills, KD ratio, ELO, niveles y King of the Hill en Survival RPG y Survival 1.21.6. Top jugadores, leaderboards detalladas de Minecraft.",
+  description = "Ranking y estadísticas de Hera Network: kills, ratio KD, ELO, niveles y más en Survival RPG y Survival 1.21.6.",
   canonicalUrl = Astro.url.href,
 } = Astro.props;
 
 const seoKeywords =
   "estadísticas minecraft, ranking heranetwork, kills minecraft, KD ratio, ELO ranking, king of the hill, survival rpg, survival 1.21.6, top jugadores minecraft, leaderboard minecraft, estadísticas jugadores, heramc.net, heranetwork stats";
-
 ---
 
 <SEO
@@ -27,7 +26,21 @@ const seoKeywords =
     meta: [
       { name: "keywords", content: seoKeywords },
       { name: "author", content: "stephanofer" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@heranetwork" },
+      { name: "twitter:creator", content: "@stephanofer_" },
+      { name: "twitter:title", content: title },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: "https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/a00384b9-c99b-490a-76a6-b032ab357500/format=jpg" },
     ],
   }}
+  openGraph={{
+    basic: {
+      title: title,
+      type: "website",
+      image:
+        "https://imagedelivery.net/avcZT-oq9_igVytxtuW9-A/a00384b9-c99b-490a-76a6-b032ab357500/format=jpg",
+      url: canonicalUrl,
+    },
+  }}
 />
-
