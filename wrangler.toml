@@ -8,8 +8,8 @@ routes = [
 
 #CHANGE IN FUTURE
 [vars]
-API_RPG="RANDOM"
-API_SURVI="RANDOM"
+API_RPG="https://api.heramc.net/api/v1/rpg/leaderboards"
+API_SURVI="https://api.heramc.net/api/v1/survival/leaderboards"
 API_PLAYERS_RPG="RANDOM"
 API_PLAYERS_SURVI="RANDOM"
 
